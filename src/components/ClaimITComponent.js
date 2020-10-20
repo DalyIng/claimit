@@ -14,6 +14,7 @@ import CropFreeIcon from "@material-ui/icons/CropFree";
 
 import web3 from "../constants/Web3";
 import Upload from "./UploadPhoto";
+import Dialog from "./Dialog";
 
 import claimManagerContractABI from "../ABIs/claimManager";
 
@@ -101,9 +102,11 @@ export default function ClaimITComponent(props) {
   const [data, setData] = useState("");
   const [scan, setScan] = useState(false);
   const [files, setFiles] = useState([]);
+  const [dataUri, setDataUri] = useState("");
   const [plate, setPlate] = useState("");
   const [verified, setVerified] = useState(null);
   const [firstScreen, setFirstScreen] = useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const classes = useStyles();
 
@@ -221,6 +224,28 @@ export default function ClaimITComponent(props) {
     setPlate(res.data.results[0].plate);
   }
 
+  async function setImage(dataUri) {
+    console.log("dataUri: ", dataUri);
+    setDataUri(dataUri);
+
+    const res = await axios.post(
+      "https://api.openalpr.com/v3/recognize_bytes?recognize_vehicle=1&country=us&secret_key=sk_978e794068ff24ccbcce9de5",
+      // INFO 22 = length of "data:image/png;base64,"
+      // TODO handle other images types (jpg, jpeg...)
+      dataUri.substring(22)
+    );
+    console.log("Plate Number: ", res.data.results[0].plate);
+    setPlate(res.data.results[0].plate);
+  }
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   function toRender() {
     if (!firstScreen) {
       return (
@@ -280,8 +305,33 @@ export default function ClaimITComponent(props) {
             text={files.length === 0 ? "Upload Plate Image" : "Upload finished"}
           />
 
+          <br />
+          <br />
+
+          <Button
+            onClick={handleClickOpen}
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Take a picture
+          </Button>
+
+          <Dialog
+            open={open}
+            handleClose={handleClose}
+            setImage={setImage}
+            dataUri={dataUri}
+          />
+
           {files.length === 0 ? null : (
             <img width="300px" src={files[0].base64} alt="Plate Number" />
+          )}
+
+          {open ? null : dataUri === "" ? null : (
+            <img width="300px" src={dataUri} alt="Plate Number" />
           )}
 
           <br />
