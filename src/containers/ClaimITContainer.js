@@ -14,10 +14,19 @@ class ClaimITContainer extends Component {
 
   state = {
     errorMessage: null,
+    address: null,
   };
 
   componentDidMount() {
     this._getLatestBlocksInfos();
+
+    const query = new URLSearchParams(this.props.location.search);
+
+    const address = query.get("address");
+
+    if (address) {
+      this.setState({ address });
+    }
   }
 
   _getLatestBlocksInfos = () => {
@@ -31,13 +40,16 @@ class ClaimITContainer extends Component {
   render = () => {
     const { Layout, isLoading, latestBlocksInfos } = this.props;
 
-    const { errorMessage } = this.state;
+    const { errorMessage, address } = this.state;
+
+    console.log("address: ", address);
 
     return (
       <Layout
         loading={isLoading}
         error={errorMessage}
         latestBlocksInfos={latestBlocksInfos}
+        address={address}
       />
     );
   };
@@ -52,7 +64,4 @@ const mapDispatchToProps = {
   _getLatestBlocksInfos: getLatestBlocksInfos,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ClaimITContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ClaimITContainer);

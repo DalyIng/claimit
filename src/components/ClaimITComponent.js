@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -30,7 +30,7 @@ function Copyright() {
   );
 }
 
-function Verification(props) {
+function VerificationSuccess(props) {
   return (
     <Typography variant="h6" color="textPrimary" align="center">
       1. Checking claims...
@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ClaimITComponent() {
+export default function ClaimITComponent(props) {
   const [data, setData] = useState("");
   const [scan, setScan] = useState(false);
   const [files, setFiles] = useState([]);
@@ -106,6 +106,10 @@ export default function ClaimITComponent() {
   const [firstScreen, setFirstScreen] = useState(true);
 
   const classes = useStyles();
+
+  useEffect(() => {
+    if (props.address) setData(props.address);
+  }, [props]);
 
   async function handleScan(data) {
     if (data) {
@@ -208,8 +212,10 @@ export default function ClaimITComponent() {
   async function getFiles(files) {
     setFiles(files);
     const res = await axios.post(
-      "https://api.openalpr.com/v3/recognize_bytes?recognize_vehicle=1&country=us&secret_key=sk_980e2562e87392c656f50207",
-      files[0].base64.substring(23)
+      "https://api.openalpr.com/v3/recognize_bytes?recognize_vehicle=1&country=us&secret_key=sk_978e794068ff24ccbcce9de5",
+      // INFO 22 = length of "data:image/png;base64,"
+      // TODO handle other images types (jpg, jpeg...)
+      files[0].base64.substring(22)
     );
     console.log("Plate Number: ", res.data.results[0].plate);
     setPlate(res.data.results[0].plate);
@@ -219,7 +225,7 @@ export default function ClaimITComponent() {
     if (!firstScreen) {
       return (
         <Box mt={12}>
-          {verified ? <Verification /> : <VerificationDenied />}
+          {verified ? <VerificationSuccess /> : <VerificationDenied />}
         </Box>
       );
     } else {
@@ -236,24 +242,22 @@ export default function ClaimITComponent() {
             ) : null
           ) : null}
 
-          {
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={handleOpenScanner}
-            >
-              {data === "" ? (
-                <React.Fragment>
-                  <CropFreeIcon /> Scan QRCode
-                </React.Fragment>
-              ) : (
-                "QRCode Scanned"
-              )}
-            </Button>
-          }
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={handleOpenScanner}
+          >
+            {data === "" ? (
+              <React.Fragment>
+                <CropFreeIcon /> Scan QRCode
+              </React.Fragment>
+            ) : (
+              "QRCode Scanned"
+            )}
+          </Button>
 
           {data === "" ? null : (
             <Typography variant="h6" color="textPrimary" align="center">
