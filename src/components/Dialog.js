@@ -29,7 +29,7 @@ export default function AlertDialog(props) {
         onClose={props.handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        // fullScreen
+        fullScreen
       >
         <DialogTitle id="alert-dialog-title">{"Taking a photo"}</DialogTitle>
         <DialogContent>
@@ -38,10 +38,11 @@ export default function AlertDialog(props) {
               handleTakePhoto(dataUri);
             }}
             imageType={IMAGE_TYPES.PNG}
-            idealResolution={{ width: 300, height: 500 }}
+            idealResolution={{ width: 100}}
             idealFacingMode={FACING_MODES.ENVIRONMENT}
             // isFullscreen
             imageCompression={0.97}
+            isImageMirror={false}
           />
         </DialogContent>
         <DialogActions>
