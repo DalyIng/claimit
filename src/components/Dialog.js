@@ -11,18 +11,18 @@ import "react-html5-camera-photo/build/css/index.css";
 
 export default function AlertDialog(props) {
   function handleTakePhoto(dataUri) {
-    // Do stuff with the photo...
-    // console.log("dataUri: ", dataUri);
     console.log("takePhoto");
     props.setImage(dataUri);
+    props.handleClose();
   }
 
-  function resetPhoto() {
-    // Do stuff with the photo...
-    // console.log("dataUri: ", dataUri);
+  //   function resetPhoto() {
+  //     // Do stuff with the photo...
+  //     // console.log("dataUri: ", dataUri);
 
-    props.setImage("");
-  }
+  //     props.setImage("");
+  //   }
+
   return (
     <div>
       <Dialog
@@ -33,26 +33,18 @@ export default function AlertDialog(props) {
       >
         <DialogTitle id="alert-dialog-title">{"Taking a photo"}</DialogTitle>
         <DialogContent>
-          {/* <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
-          </DialogContentText> */}
-          {props.dataUri === "" ? (
-            <Camera
-              onTakePhoto={(dataUri) => {
-                handleTakePhoto(dataUri);
-              }}
-              imageType={IMAGE_TYPES.PNG}
-              idealResolution={{ width: 300 }}
-            />
-          ) : (
-            <img width="300px" src={props.dataUri} alt="Plate Number" />
-          )}
+          <Camera
+            onTakePhoto={(dataUri) => {
+              handleTakePhoto(dataUri);
+            }}
+            imageType={IMAGE_TYPES.PNG}
+            idealResolution={{ width: 300 }}
+          />
         </DialogContent>
         <DialogActions>
-          <Button onClick={resetPhoto} color="primary">
+          {/* <Button onClick={resetPhoto} color="primary">
             Retake
-          </Button>
+          </Button> */}
           <Button onClick={props.handleClose} color="primary" autoFocus>
             Exit
           </Button>

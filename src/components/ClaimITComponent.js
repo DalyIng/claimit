@@ -11,6 +11,7 @@ import Container from "@material-ui/core/Container";
 import QrReader from "react-qr-reader";
 import axios from "axios";
 import CropFreeIcon from "@material-ui/icons/CropFree";
+import TextField from "@material-ui/core/TextField";
 
 import web3 from "../constants/Web3";
 import Upload from "./UploadPhoto";
@@ -31,7 +32,7 @@ function Copyright() {
   );
 }
 
-function VerificationSuccess(props) {
+function VerificationSuccess() {
   return (
     <Typography variant="h6" color="textPrimary" align="center">
       1. Checking claims...
@@ -96,26 +97,52 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  form: {
+    "& > *": {
+      margin: theme.spacing(1),
+      // width: "25ch",
+      width: "100%",
+    },
+  },
 }));
 
 export default function ClaimITComponent(props) {
-  const [data, setData] = useState("");
-  const [scan, setScan] = useState(false);
-  const [files, setFiles] = useState([]);
-  const [dataUri, setDataUri] = useState("");
-  const [plate, setPlate] = useState("");
-  const [verified, setVerified] = useState(null);
-  const [firstScreen, setFirstScreen] = useState(true);
-  const [open, setOpen] = React.useState(false);
+  const [data, setData] = useState(""); // address of the PMR
+  const [scan, setScan] = useState(false); // QrCode scanner
+  const [files, setFiles] = useState([]); // file uploaded
+  const [dataUri, setDataUri] = useState(""); // plateImage
+  const [plate, setPlate] = useState(""); // plateText
+  const [verified, setVerified] = useState(null); // result after onChain verification
+  const [firstScreen, setFirstScreen] = useState(true); //
+  const [open, setOpen] = useState(false); // cam dialog
+  const [validAddress, setValidAddress] = useState(null); // validate Ethereum address
+
+  //
 
   const classes = useStyles();
 
-  useEffect(() => {
-    if (props.address) setData(props.address);
-  }, [props]);
+  //
 
+  useEffect(() => {
+    if (props.address && verifyValidAddress(props.address)) {
+      setData(props.address);
+    }
+  }, [props.address]);
+
+  //
+
+  // = = = = = = = IDENTITY = = = = = = = =
+
+  // verify valid Ethereum address
+  const verifyValidAddress = (data) => {
+    setValidAddress(web3.utils.isAddress(data));
+    return web3.utils.isAddress(data);
+  };
+  //
+
+  // handle QrCode
   async function handleScan(data) {
-    if (data) {
+    if (data && verifyValidAddress(data)) {
       setData(data);
     }
   }
@@ -123,7 +150,9 @@ export default function ClaimITComponent(props) {
   function handleError(err) {
     console.error(err);
   }
+  //
 
+  // handle open QrCode scanner
   function handleOpenScanner() {
     if (!scan) {
       setScan(true);
@@ -131,8 +160,56 @@ export default function ClaimITComponent(props) {
       setScan(false);
     }
   }
+  //
 
+  // = = = = = = = PLATE = = = = = = = =
+
+  // handle openCam dialog
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // handle Input
+  const handlePlate = (event) => {
+    setPlate(event.target.value);
+  };
+
+  // handle set plate image with Cam
+  async function setImage(data) {
+    if (typeof data === "object") {
+      setFiles(data);
+      setDataUri(data[0].base64);
+      await getPlateNumber(data[0].base64);
+    } else {
+      setDataUri(data);
+      await getPlateNumber(data);
+    }
+  }
+
+  // Request OpenAlpr provider
+  async function getPlateNumber(data) {
+    try {
+      const res = await axios.post(
+        "https://api.openalpr.com/v3/recognize_bytes?recognize_vehicle=1&country=us&secret_key=sk_978e794068ff24ccbcce9de5",
+        data.substring(22)
+      );
+      console.log("Plate Number: ", res.data.results[0].plate);
+      setPlate(res.data.results[0].plate);
+      return res.data.results[0].plate;
+    } catch (e) {
+      console.log("Error when fetching the plate number, ", e);
+    }
+  }
+
+  // = = = = = = = Veirification = = = = = = = =
+
+  // Main verification function
   async function verifyClaim() {
+    console.log("Plate: ", plate);
     const Mr_MAX_MUSTERMANContractAddress = data;
 
     console.log(
@@ -209,48 +286,34 @@ export default function ClaimITComponent(props) {
       setVerified(false);
     }
 
+    // setVerified (
+    //   pmrContractOwner === signerVehiculeNumber &&
+    //   doctorContractOwner === signerParkingAuth &&
+    //   vehiculeNumber === plate
+    // )
+
     setFirstScreen(false);
   }
 
-  async function getFiles(files) {
-    setFiles(files);
-    const res = await axios.post(
-      "https://api.openalpr.com/v3/recognize_bytes?recognize_vehicle=1&country=us&secret_key=sk_978e794068ff24ccbcce9de5",
-      // INFO 22 = length of "data:image/png;base64,"
-      // TODO handle other images types (jpg, jpeg...)
-      files[0].base64.substring(22)
-    );
-    console.log("Plate Number: ", res.data.results[0].plate);
-    setPlate(res.data.results[0].plate);
-  }
-
-  async function setImage(dataUri) {
-    console.log("dataUri: ", dataUri);
-    setDataUri(dataUri);
-
-    const res = await axios.post(
-      "https://api.openalpr.com/v3/recognize_bytes?recognize_vehicle=1&country=us&secret_key=sk_978e794068ff24ccbcce9de5",
-      // INFO 22 = length of "data:image/png;base64,"
-      // TODO handle other images types (jpg, jpeg...)
-      dataUri.substring(22)
-    );
-    console.log("Plate Number: ", res.data.results[0].plate);
-    setPlate(res.data.results[0].plate);
-  }
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // = = = = = = = = = What to render = = = = = = = = =
 
   function toRender() {
     if (!firstScreen) {
       return (
         <Box mt={12}>
           {verified ? <VerificationSuccess /> : <VerificationDenied />}
+          <Button
+            onClick={() => {
+              setFirstScreen(true);
+            }}
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Back
+          </Button>
         </Box>
       );
     } else {
@@ -301,7 +364,7 @@ export default function ClaimITComponent(props) {
 
           <Upload
             multiple={true}
-            onDone={getFiles}
+            onDone={setImage}
             text={files.length === 0 ? "Upload Plate Image" : "Upload finished"}
           />
 
@@ -326,15 +389,24 @@ export default function ClaimITComponent(props) {
             dataUri={dataUri}
           />
 
-          {files.length === 0 ? null : (
-            <img width="300px" src={files[0].base64} alt="Plate Number" />
-          )}
-
           {open ? null : dataUri === "" ? null : (
             <img width="300px" src={dataUri} alt="Plate Number" />
           )}
 
+          {validAddress === false ? <p>NOT VALID ADDRESS</p> : null}
+
           <br />
+          <br />
+
+          <form className={classes.form} noValidate autoComplete="off">
+            <TextField
+              id="outlined-basic"
+              label="License plate"
+              variant="outlined"
+              onChange={handlePlate}
+            />
+          </form>
+
           <br />
           <br />
 
@@ -353,6 +425,8 @@ export default function ClaimITComponent(props) {
       );
     }
   }
+
+  // = = = = = = = = = Return ... = = = = = = = = =
 
   return (
     <Container component="main" maxWidth="xs">
