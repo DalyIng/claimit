@@ -4,7 +4,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import Camera, { IMAGE_TYPES } from "react-html5-camera-photo";
+import Camera, { IMAGE_TYPES, FACING_MODES } from "react-html5-camera-photo";
 
 import "react-html5-camera-photo/build/css/index.css";
 
@@ -29,6 +29,7 @@ export default function AlertDialog(props) {
         onClose={props.handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        // fullScreen
       >
         <DialogTitle id="alert-dialog-title">{"Taking a photo"}</DialogTitle>
         <DialogContent>
@@ -37,7 +38,10 @@ export default function AlertDialog(props) {
               handleTakePhoto(dataUri);
             }}
             imageType={IMAGE_TYPES.PNG}
-            idealResolution={{ width: 300 }}
+            idealResolution={{ width: 300, height: 500 }}
+            idealFacingMode={FACING_MODES.ENVIRONMENT}
+            // isFullscreen
+            imageCompression={0.97}
           />
         </DialogContent>
         <DialogActions>
