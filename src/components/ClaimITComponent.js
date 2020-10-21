@@ -16,6 +16,7 @@ import TextField from "@material-ui/core/TextField";
 import web3 from "../constants/Web3";
 import Upload from "./UploadPhoto";
 import Dialog from "./Dialog";
+import Loading from "./Loading";
 
 import claimManagerContractABI from "../ABIs/claimManager";
 
@@ -85,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#D3D3D3",
     padding: "60px",
     borderRadius: "10px",
+    minHeight: "400px"
   },
   avatar: {
     margin: theme.spacing(1),
@@ -107,6 +109,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ClaimITComponent(props) {
+  // state
+  const [fetching, setFetching] = useState(false);
   const [data, setData] = useState(""); // address of the PMR
   const [scan, setScan] = useState(false); // QrCode scanner
   const [files, setFiles] = useState([]); // file uploaded
@@ -209,7 +213,9 @@ export default function ClaimITComponent(props) {
 
   // Main verification function
   async function verifyClaim() {
-    console.log("Plate: ", plate);
+    setFetching(true);
+
+    //
     const Mr_MAX_MUSTERMANContractAddress = data;
 
     console.log(
@@ -293,6 +299,8 @@ export default function ClaimITComponent(props) {
     // )
 
     setFirstScreen(false);
+
+    setTimeout(() => setFetching(false), 3000);
   }
 
   // = = = = = = = = = What to render = = = = = = = = =
@@ -438,7 +446,7 @@ export default function ClaimITComponent(props) {
         <Typography component="h1" variant="h5">
           ClaimIT!
         </Typography>
-        {toRender()}
+        {fetching ? <Loading /> : toRender()}
       </div>
       <Box mt={8}>
         <Copyright />

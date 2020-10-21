@@ -19,12 +19,13 @@ export default function Error() {
 
   return (
     <div className={classes.root}>
-      <Alert severity="error">This is an error alert — check it out!
-      <Link to="/">
-            <Button variant="contained" color="primary">
-              Go home!
-            </Button>
-          </Link>
+      <Alert severity="error">
+        This is an error alert — check it out!
+        <Link to="/">
+          <Button variant="contained" color="primary">
+            Go home!
+          </Button>
+        </Link>
       </Alert>
     </div>
   );
