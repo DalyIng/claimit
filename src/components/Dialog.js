@@ -38,7 +38,7 @@ export default function AlertDialog(props) {
               handleTakePhoto(dataUri);
             }}
             imageType={IMAGE_TYPES.PNG}
-            idealResolution={{ width: 100}}
+            // idealResolution={{ width: 100}}
             idealFacingMode={FACING_MODES.ENVIRONMENT}
             // isFullscreen
             imageCompression={0.97}
