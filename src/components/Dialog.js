@@ -45,7 +45,7 @@ export default function AlertDialog(props) {
             // isImageMirror={false}
             idealFacingMode={FACING_MODES.ENVIRONMENT}
             idealResolution={{ width: 640, height: 480 }}
-            imageType={IMAGE_TYPES.JPG}
+            imageType={IMAGE_TYPES.PNG}
             imageCompression={0.97}
             isMaxResolution={false}
             isImageMirror={false}
