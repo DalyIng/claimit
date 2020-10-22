@@ -10,7 +10,7 @@ import * as serviceWorker from "./serviceWorker";
 import Routes from "./routes/index";
 
 // Components
-import Loading from "./components/Loading";
+import Loading from "./components/OnBoardingComponent/Loading";
 
 // Load css
 import "./index.css";

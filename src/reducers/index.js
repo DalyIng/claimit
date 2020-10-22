@@ -1,9 +1,8 @@
-import status from './status';
-import latestBlocksInfos from './latestBlocksInfos';
+import status from "./status";
 
 const rehydrated = (state = false, action) => {
   switch (action.type) {
-    case 'persist/REHYDRATE':
+    case "persist/REHYDRATE":
       return true;
     default:
       return state;
@@ -13,5 +12,4 @@ const rehydrated = (state = false, action) => {
 export default {
   rehydrated,
   status,
-  latestBlocksInfos,
 };

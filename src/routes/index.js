@@ -1,9 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import ClaimITComponent from "../components/ClaimITComponent";
-import ClaimITContainer from "../containers/ClaimITContainer";
-
 import OnBoardingComponent from "../components/OnBoardingComponent";
 import OnBoardingContainer from "../containers/OnBoardingContainer";
 
@@ -16,13 +13,6 @@ const Index = () => (
       path="/"
       render={(props) => (
         <OnBoardingContainer {...props} Layout={OnBoardingComponent} />
-      )}
-    />
-    <Route
-      exact
-      path="/process"
-      render={(props) => (
-        <ClaimITContainer {...props} Layout={ClaimITComponent} />
       )}
     />
     <Route

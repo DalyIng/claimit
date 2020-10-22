@@ -1,4 +1,5 @@
 /* Define colors */
+
 :root {
   --color-primary: #36498e;
   --color-complement: #631d22;
@@ -30,7 +31,6 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--color-complement);
 }
 
 .main {
