@@ -18,13 +18,6 @@
 }
 
 @font-face {
-  font-family: "Lucida_Grande_Bold";
-  src: local("Lucida_Grande_Bold"),
-    url(./assets/claim_it/fonts/lucida-grande/Lucida_Grande_Bold.ttf)
-      format("truetype");
-}
-
-@font-face {
   font-family: "DINBold";
   src: local("DINBold"),
     url(./assets/claim_it/fonts/din/DINBold.ttf) format("truetype");
@@ -81,17 +74,17 @@ body {
   padding: 40px 0 20px 10px;
 }
 
-.cardTitle {
+.card_title {
   font-size: 30px;
   color: var(--color-complement);
 }
 
-.cardTitle_2 {
+.card_title_2 {
   font-size: 30px;
   color: var(--color-text);
 }
 
-.cardSubTitle {
+.card_subtitle {
   font-size: 20px;
   color: var(--color-heading);
 }
@@ -130,7 +123,7 @@ li {
 
 .scan_button {
   background-color: var(--color-complement);
-  background-image: url(./assets/claim_it/icons/method-draw-image.svg);
+  background-image: url(./assets/claim_it/icons/qrcode.svg);
   background-repeat: no-repeat;
   background-position: 90% 50%;
   border-radius: 30px;
@@ -138,6 +131,7 @@ li {
   padding: 15px 80px 10px 80px;
   text-align: center;
   font-family: "Lucida_Grande";
+  outline: 0 !important;
 }
 
 .link {
@@ -160,16 +154,89 @@ li {
   padding-top: 20px;
 }
 
+.items_aligned_identity {
+  display: flex;
+  align-items: center;
+}
+
+.title_identity {
+  padding-left: 10px;
+  padding-top: 30px;
+  font-size: 30px;
+  color: var(--color-primary);
+}
+
+.identity_text {
+  color: var(--color-heading);
+  font-size: 25px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.card_identity {
+  background-color: var(--color-card);
+  padding: 20px;
+  border-radius: 25px;
+}
+
+.card_identity_2 {
+  padding: 20px;
+}
+
+.card_title_identity_2 {
+  font-size: 25px;
+  color: var(--color-text);
+}
+
+.card_p_identity_2 {
+  font-size: 16px;
+  color: var(--color-text);
+}
+
+.retry_button {
+  background-color: var(--color-complement);
+  border-radius: 30px;
+  color: white;
+  padding: 15px 80px 10px 80px;
+  text-align: center;
+  font-family: "Lucida_Grande";
+  outline: 0 !important;
+}
+
+.identity_textResult {
+  color: var(--color-heading);
+  font-size: 20px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.divider {
+  border-top: 1px solid var(--color-heading);
+}
+
+.card_titleResult {
+  font-size: 25px;
+  color: var(--color-complement);
+}
+
+.cardResult {
+  background-color: var(--color-card);
+  padding: 30px;
+  border-radius: 25px;
+}
+
+/* Media queries */
+
 @media screen and (max-width: 576px) {
   .items_aligned {
     display: inline;
   }
 
-  .cardTitle {
+  .card_title {
     margin-top: 20px;
   }
 
-  .cardSubTitle {
+  .card_subtitle {
     margin-top: 20px;
   }
 
@@ -219,6 +286,13 @@ li {
     width: 100%;
   }
 
+  .retry_button {
+    position: relative;
+    left: 0;
+    margin-top: 20px;
+    width: 100%;
+  }
+
   .solid {
     display: none;
   }
@@ -227,6 +301,10 @@ li {
     padding: 20px 60px 10px 60px;
     white-space: nowrap;
     background-position: 5% 70%;
+  }
+
+  .placeholder {
+    height: 150px;
   }
 }
 

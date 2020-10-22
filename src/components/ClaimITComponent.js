@@ -197,6 +197,7 @@ export default function ClaimITComponent(props) {
   // Request OpenAlpr provider
   async function getPlateNumber(data) {
     try {
+      console.log(data.substring(22))
       const res = await axios.post(
         "https://api.openalpr.com/v3/recognize_bytes?recognize_vehicle=1&country=us&secret_key=sk_978e794068ff24ccbcce9de5",
         data.substring(22)

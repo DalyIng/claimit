@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import QrReader from "react-qr-reader";
 
 import logo from "../../assets/claim_it/logo.svg";
 
-export default function Landing() {
+export default function Landing(props) {
+  const [scanning, setScanning] = useState(false); // QrCode scanner
+
+  const handleOpenScanner = () => {
+    setScanning(!scanning);
+  };
+
   return (
     <div className="main">
       <div className="triangle" />
@@ -23,26 +30,39 @@ export default function Landing() {
           <div className="col-xl-8 offset-xl-2 col-12 mt-50">
             <div className="card_main">
               <div className="card_1">
-                <h1 className="cardTitle">Easy, reliabe</h1>
-                <h1 className="cardSubTitle">Here's how to check it</h1>
-                <ol className="list_1">
-                  <li>
-                    <span className="list_span">
-                      Scan QR code present on the vehicule
-                    </span>
-                  </li>
-                  <li>
-                    <span className="list_span">
-                      Scan license plate of vehicule
-                    </span>
-                  </li>
-                  <li>
-                    <span className="list_span">Get parking permit status</span>
-                  </li>
-                </ol>
+                {scanning ? (
+                  <QrReader
+                    delay={1500}
+                    onError={props.handleError}
+                    onScan={props.handleScan}
+                    style={{ width: "100%", height: "100%" }}
+                  />
+                ) : (
+                  <React.Fragment>
+                    <h1 className="card_title">Easy, reliabe</h1>
+                    <h1 className="card_subtitle">Here's how to check it</h1>
+                    <ol className="list_1">
+                      <li>
+                        <span className="list_span">
+                          Scan QR code present on the vehicule
+                        </span>
+                      </li>
+                      <li>
+                        <span className="list_span">
+                          Scan license plate of vehicule
+                        </span>
+                      </li>
+                      <li>
+                        <span className="list_span">
+                          Get parking permit status
+                        </span>
+                      </li>
+                    </ol>
+                  </React.Fragment>
+                )}
               </div>
               <div className="card_2">
-                <h1 className="cardTitle_2">Benefits</h1>
+                <h1 className="card_title_2">Benefits</h1>
                 <ul className="list_2">
                   <li>
                     <span className="list_span">
@@ -63,12 +83,14 @@ export default function Landing() {
                   </li>
                 </ul>
               </div>
-              <hr class="solid" />
+              <hr className="solid" />
               <div style={{ textAlign: "center", paddingTop: "20px" }}>
                 <button className="link">Get a disabled parking permit</button>
               </div>
               <div className="button_div">
-                <button className="scan_button">Scan QR code </button>
+                <button className="scan_button" onClick={handleOpenScanner}>
+                  {scanning ? <span>Scanning</span> : <span>Scan QR code</span>}
+                </button>
               </div>
             </div>
           </div>

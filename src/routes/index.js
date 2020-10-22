@@ -15,14 +15,14 @@ const Index = () => (
       exact
       path="/"
       render={(props) => (
-        <ClaimITContainer {...props} Layout={ClaimITComponent} />
+        <OnBoardingContainer {...props} Layout={OnBoardingComponent} />
       )}
     />
     <Route
       exact
       path="/process"
       render={(props) => (
-        <OnBoardingContainer {...props} Layout={OnBoardingComponent} />
+        <ClaimITContainer {...props} Layout={ClaimITComponent} />
       )}
     />
     <Route

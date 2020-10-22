@@ -1,1 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/></g><g><g><path d="M3,11h8V3H3V11z M5,5h4v4H5V5z"/><path d="M3,21h8v-8H3V21z M5,15h4v4H5V15z"/><path d="M13,3v8h8V3H13z M19,9h-4V5h4V9z"/><rect height="2" width="2" x="19" y="19"/><rect height="2" width="2" x="13" y="13"/><rect height="2" width="2" x="15" y="15"/><rect height="2" width="2" x="13" y="17"/><rect height="2" width="2" x="15" y="19"/><rect height="2" width="2" x="17" y="17"/><rect height="2" width="2" x="17" y="13"/><rect height="2" width="2" x="19" y="15"/></g></g></svg>
+<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="602" width="802" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_1">
+   <rect id="svg_2" width="24" height="24" fill="none"/>
+  </g>
+  <g fill="white" id="svg_3">
+   <g id="svg_4">
+    <path id="svg_5" d="m3,11l8,0l0,-8l-8,0l0,8zm2,-6l4,0l0,4l-4,0l0,-4z"/>
+    <path id="svg_6" d="m3,21l8,0l0,-8l-8,0l0,8zm2,-6l4,0l0,4l-4,0l0,-4z"/>
+    <path id="svg_7" d="m13,3l0,8l8,0l0,-8l-8,0zm6,6l-4,0l0,-4l4,0l0,4z"/>
+    <rect id="svg_8" y="19" x="19" width="2" height="2"/>
+    <rect id="svg_9" y="13" x="13" width="2" height="2"/>
+    <rect id="svg_10" y="15" x="15" width="2" height="2"/>
+    <rect id="svg_11" y="17" x="13" width="2" height="2"/>
+    <rect id="svg_12" y="19" x="15" width="2" height="2"/>
+    <rect id="svg_13" y="17" x="17" width="2" height="2"/>
+    <rect id="svg_14" y="13" x="17" width="2" height="2"/>
+    <rect id="svg_15" y="15" x="19" width="2" height="2"/>
+   </g>
+  </g>
+ </g>
+</svg>
