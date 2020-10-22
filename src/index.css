@@ -41,7 +41,7 @@ body {
 }
 
 .main {
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   font-family: "DINBold";
@@ -78,7 +78,7 @@ body {
 }
 
 .card_2 {
-  padding: 40px;
+  padding: 40px 0 20px 10px;
 }
 
 .cardTitle {
@@ -124,7 +124,7 @@ li {
   padding-left: 10px;
 }
 
-hr.solid {
+.solid {
   border-top: 1px solid #bbb;
 }
 
@@ -140,9 +140,37 @@ hr.solid {
   font-family: "Lucida_Grande";
 }
 
+.link {
+  background-color: transparent;
+  background-image: url(./assets/claim_it/icons/open.svg);
+  background-repeat: no-repeat;
+  background-position: 10% 0%;
+  border-radius: 30px;
+  border-color: transparent;
+  color: black;
+  padding: 0 60px 10px 60px;
+  text-align: center;
+  font-family: "Lucida_Grande";
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.button_div {
+  text-align: center;
+  padding-top: 20px;
+}
+
 @media screen and (max-width: 576px) {
   .items_aligned {
     display: inline;
+  }
+
+  .cardTitle {
+    margin-top: 20px;
+  }
+
+  .cardSubTitle {
+    margin-top: 20px;
   }
 
   .title {
@@ -161,19 +189,45 @@ hr.solid {
   }
 
   .card_main {
-    padding: 10px;
+    padding: 0;
   }
 
   .card_1 {
-    padding: 60px;
+    padding: 30px;
+    height: 350px;
+    border-radius: 25px;
   }
 
   .card_2 {
     display: none;
   }
-  
 
+  .list_span {
+    padding-left: 5px;
+    padding-top: 30px;
+    font-size: 16px;
+  }
 
+  .list_1 {
+    margin-top: 60px;
+  }
+
+  .scan_button {
+    position: relative;
+    left: 0;
+    margin-top: 50px;
+    width: 100%;
+  }
+
+  .solid {
+    display: none;
+  }
+
+  .link {
+    padding: 20px 60px 10px 60px;
+    white-space: nowrap;
+    background-position: 5% 70%;
+  }
 }
 
 @media screen and (min-width: 576px) {

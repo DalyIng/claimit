@@ -23,7 +23,7 @@ export default function OnBoardingComponent() {
         <div className="row">
           <div className="col-12 items_aligned">
             <img
-              style={{ height: "40px", width: "40px" }}
+              style={{ height: "50px", width: "50px" }}
               src={logo}
               alt="logo"
             />
@@ -33,7 +33,7 @@ export default function OnBoardingComponent() {
               <span className="subtitle">Digital disabled parking permit</span>
             </h1>
           </div>
-          <div className="col-xl-6 offset-xl-3 col-12 mt-50">
+          <div className="col-xl-8 offset-xl-2 col-12 mt-50">
             <div className="card_main">
               <div className="card_1">
                 <h1 className="cardTitle">Easy, reliabe</h1>
@@ -77,7 +77,10 @@ export default function OnBoardingComponent() {
                 </ul>
               </div>
               <hr class="solid" />
-              <div style={{ textAlign: "center", paddingTop: "10px" }}>
+              <div style={{ textAlign: "center", paddingTop: "20px" }}>
+                <button className="link">Get a disabled parking permit</button>
+              </div>
+              <div className="button_div">
                 <button className="scan_button">Scan QR code </button>
               </div>
             </div>
