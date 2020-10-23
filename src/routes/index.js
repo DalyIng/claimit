@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import OnBoardingComponent from "../components/OnBoardingComponent";
 import OnBoardingContainer from "../containers/OnBoardingContainer";
 
-import Error from "../components/Error";
+import Error from "../components/OnBoardingComponent/Error";
 
 const Index = () => (
   <Switch>

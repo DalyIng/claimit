@@ -173,6 +173,13 @@ li {
   word-wrap: break-word;
 }
 
+.identity_text_scan {
+  color: var(--color-heading);
+  font-size: 15px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
 .card_identity {
   background-color: var(--color-card);
   padding: 20px;

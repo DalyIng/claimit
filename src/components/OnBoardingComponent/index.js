@@ -68,6 +68,11 @@ export default function Index(props) {
 
   // = = = = handle plate image = = = =
 
+  // handle Input
+  const handlePlate = (event) => {
+    setPlateNumber(event.target.value);
+  };
+
   // Request OpenAlpr provider
   const getPlateNumber = async (data) => {
     try {
@@ -97,8 +102,6 @@ export default function Index(props) {
   };
 
   // = = = = = = = Veirification = = = = = = = =
-
-  // Main verification function
   async function verifyClaim() {
     setLoading(true);
 
@@ -167,17 +170,11 @@ export default function Index(props) {
     const pmrContractOwner = await maxMContract.methods.owner().call();
     console.log("pmrContractOwner: ", pmrContractOwner);
 
-    if (
+    setValidClaim(
       pmrContractOwner === signerVehiculeNumber &&
-      doctorContractOwner === signerParkingAuth &&
-      vehiculeNumber === plateNumber
-    ) {
-      console.log("Verified: TRUE!");
-      setValidClaim(true);
-    } else {
-      console.log("Verified: FALSE!");
-      setValidClaim(false);
-    }
+        doctorContractOwner === signerParkingAuth &&
+        vehiculeNumber === plateNumber
+    );
 
     handleNext();
 
@@ -208,6 +205,7 @@ export default function Index(props) {
               getPlateNumber={getPlateNumber}
               plateNumber={plateNumber}
               setLoading={setLoading}
+              handlePlate={handlePlate}
             />
           );
         } else {
@@ -239,6 +237,7 @@ export default function Index(props) {
             />
           );
         }
+      // TODO handle permitExpired, we need a modification on smartContracts for this
       case 3:
         return <PermitExpired handleNext={handleNext} />;
       default:

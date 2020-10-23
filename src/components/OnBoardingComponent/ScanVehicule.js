@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Camera, { IMAGE_TYPES, FACING_MODES } from "react-html5-camera-photo";
 
+import InputPlate from "./InputPlate";
+
 import "react-html5-camera-photo/build/css/index.css";
 
 import logo from "../../assets/claim_it/logo.svg";
@@ -13,6 +15,7 @@ export default function ScanVehicule(props) {
     props.setLoading(true);
     setScanning(false);
     console.log("INFO - Photo taken");
+    console.log("INFO - DataUri: ", dataUri);
     props.setPlateImage(dataUri);
     await props.getPlateNumber(dataUri);
     props.setLoading(false);
@@ -59,7 +62,9 @@ export default function ScanVehicule(props) {
                 <React.Fragment>
                   <div className="card_identity">
                     <h1 className="card_title">Identity</h1>
-                    <h1 className="identity_text">{props.identityAddress}</h1>
+                    <h1 className="identity_text_scan">
+                      {props.identityAddress}
+                    </h1>
                   </div>
                   <div className="card_identity_2">
                     <h1 className="card_title_identity_2">Vehicule to check</h1>
@@ -80,12 +85,7 @@ export default function ScanVehicule(props) {
                     className="card_identity"
                     style={{ margin: "20px 0 20px 0" }}
                   >
-                    <h1 className="card_title">Licesne plate</h1>
-                    {/* <img
-                      className="img-fluid scan_vehicule_img"
-                      src={props.plateImage}
-                      alt="plateImage"
-                    /> */}
+                    <h1 className="card_title">License plate</h1>
                     {props.plateNumber && (
                       <h1
                         className="identity_text"
@@ -97,15 +97,6 @@ export default function ScanVehicule(props) {
                   </div>
                 </React.Fragment>
               )}
-              {/* {!props.plateNumber ? (
-                <div style={{ textAlign: "center" }}>
-                  <img
-                    src={scan}
-                    alt="scan"
-                    className="img-fluid placeholder"
-                  />
-                </div>
-              ) : null} */}
               <div style={{ textAlign: "center" }}>
                 <img src={scan} alt="scan" className="img-fluid placeholder" />
               </div>
@@ -115,9 +106,16 @@ export default function ScanVehicule(props) {
                     Cancel camera
                   </button>
                 ) : !props.plateImage ? (
-                  <button className="retry_button" onClick={handleOpenCamera}>
-                    Scan licesne plate
-                  </button>
+                  <React.Fragment>
+                    <button className="retry_button" onClick={handleOpenCamera}>
+                      Scan licesne plate
+                    </button>
+                    <InputPlate
+                      launchVerification={props.launchVerification}
+                      handlePlate={props.handlePlate}
+                      handleTakePhoto={handleTakePhoto}
+                    />
+                  </React.Fragment>
                 ) : props.plateNumber ? (
                   <button
                     className="retry_button"
