@@ -225,6 +225,10 @@ li {
   border-radius: 25px;
 }
 
+.launch {
+  white-space: nowrap;
+}
+
 /* Media queries */
 
 @media screen and (max-width: 576px) {
@@ -305,6 +309,11 @@ li {
 
   .placeholder {
     height: 150px;
+  }
+
+  .scan_vehicule_img {
+    height: 150px;
+    width: 100%;
   }
 }
 

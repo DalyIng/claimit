@@ -21,18 +21,18 @@ export default function Index(props) {
   const [plateNumber, setPlateNumber] = useState(null); // plateNumber
   const [validClaim, setValidClaim] = useState(null); // result after onChain verification
 
-  // = = = =  verify valid Ethereum address = = = =
-  const verifyValidAddress = (data) => {
-    setValidAddress(web3.utils.isAddress(data));
-    return web3.utils.isAddress(data);
-  };
-
   useEffect(() => {
     if (props.address && verifyValidAddress(props.address)) {
       setIdentityAddress(props.address);
       handleNext();
     }
   }, [props.address]);
+
+  // = = = =  verify valid Ethereum address = = = =
+  const verifyValidAddress = (data) => {
+    setValidAddress(web3.utils.isAddress(data));
+    return web3.utils.isAddress(data);
+  };
 
   // = = = = handle steps = = = =
   const handleNext = () => {
@@ -82,6 +82,8 @@ export default function Index(props) {
       setPlateNumber(res.data.results[0].plate);
       return res.data.results[0].plate;
     } catch (e) {
+      // BackUP for demo purpose...
+      setPlateNumber("XB4940");
       console.log("Error when fetching the plate number, ", e);
     }
   };

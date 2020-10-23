@@ -81,15 +81,15 @@ export default function ScanVehicule(props) {
                     style={{ margin: "20px 0 20px 0" }}
                   >
                     <h1 className="card_title">Licesne plate</h1>
-                    <img
-                      className="img-fluid placeholder"
+                    {/* <img
+                      className="img-fluid scan_vehicule_img"
                       src={props.plateImage}
                       alt="plateImage"
-                    />
+                    /> */}
                     {props.plateNumber && (
                       <h1
                         className="identity_text"
-                        style={{ marginTop: "30px" }}
+                        style={{ marginTop: "20px" }}
                       >
                         Plate Number : {props.plateNumber}
                       </h1>
@@ -97,7 +97,7 @@ export default function ScanVehicule(props) {
                   </div>
                 </React.Fragment>
               )}
-              {!props.plateImage ? (
+              {/* {!props.plateNumber ? (
                 <div style={{ textAlign: "center" }}>
                   <img
                     src={scan}
@@ -105,7 +105,10 @@ export default function ScanVehicule(props) {
                     className="img-fluid placeholder"
                   />
                 </div>
-              ) : null}
+              ) : null} */}
+              <div style={{ textAlign: "center" }}>
+                <img src={scan} alt="scan" className="img-fluid placeholder" />
+              </div>
               <div className="button_div">
                 {scanning ? (
                   <button className="retry_button" onClick={handleOpenCamera}>
@@ -120,7 +123,7 @@ export default function ScanVehicule(props) {
                     className="retry_button"
                     onClick={props.launchVerification}
                   >
-                    Launch verification
+                    <span className="launch">Launch verification</span>
                   </button>
                 ) : (
                   <button className="retry_button" onClick={handleOpenCamera}>
