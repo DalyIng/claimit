@@ -91,7 +91,7 @@ export default function Index(props) {
     } catch (e) {
       // BackUP for demo purpose...
       setPlateNumber("XB4940");
-      console.log("Error when fetching the plate number, ", e);
+      console.log("INFO - Error when fetching the plate number, ", e);
     }
   };
 
@@ -111,7 +111,7 @@ export default function Index(props) {
     const Mr_MAX_MUSTERMANContractAddress = identityAddress;
 
     console.log(
-      "QRCode Scan: Mr_MAX_MUSTERMAN contract address",
+      "INFO - QRCode Scan: Mr_MAX_MUSTERMAN contract address",
       Mr_MAX_MUSTERMANContractAddress
     );
 
@@ -124,12 +124,12 @@ export default function Index(props) {
       .getTopicClaim("PMR_PARKING_AUTH")
       .call();
 
-    console.log("pmrParkingAuth: ", pmrParkingAuth);
+    console.log("INFO - pmrParkingAuth: ", pmrParkingAuth);
 
     const Dr_AXXXXContractAddress = pmrParkingAuth[3];
 
     console.log(
-      "Doctor Issuer Address: Dr_AXXXXContractAddress",
+      "INFO - Doctor Issuer Address: Dr_AXXXXContractAddress",
       Dr_AXXXXContractAddress
     );
 
@@ -142,11 +142,11 @@ export default function Index(props) {
       .getTopicClaim("PMR_PARKING_VEHICLE_REG_NB")
       .call();
 
-    console.log("pmrParkingVehiculeNumber: ", pmrParkingVehiculeNumber);
+    console.log("INFO - pmrParkingVehiculeNumber: ", pmrParkingVehiculeNumber);
 
     const vehiculeNumber = pmrParkingVehiculeNumber[0];
 
-    console.log("vehiculeNumber: ", vehiculeNumber);
+    console.log("INFO - vehiculeNumber: ", vehiculeNumber);
 
     let constructDataVehiculerNumber = `${pmrParkingVehiculeNumber[0]}${pmrParkingVehiculeNumber[1]}${pmrParkingVehiculeNumber[2]}${pmrParkingVehiculeNumber[3]}${pmrParkingVehiculeNumber[4]}${pmrParkingVehiculeNumber[5]}`;
 
@@ -162,15 +162,15 @@ export default function Index(props) {
       pmrParkingAuth[6]
     );
 
-    console.log("signerVehiculeNumber: ", signerVehiculeNumber);
+    console.log("INFO - signerVehiculeNumber: ", signerVehiculeNumber);
 
-    console.log("signerParkingAuth: ", signerParkingAuth);
+    console.log("INFO - signerParkingAuth: ", signerParkingAuth);
 
     const doctorContractOwner = await doctorContract.methods.owner().call();
-    console.log("doctorContractOwner: ", doctorContractOwner);
+    console.log("INFO - doctorContractOwner: ", doctorContractOwner);
 
     const pmrContractOwner = await maxMContract.methods.owner().call();
-    console.log("pmrContractOwner: ", pmrContractOwner);
+    console.log("INFO - pmrContractOwner: ", pmrContractOwner);
 
     setValidClaim(
       pmrContractOwner === signerVehiculeNumber &&
