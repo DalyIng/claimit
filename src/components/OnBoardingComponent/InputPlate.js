@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) =>
     iconButton_2: {
       margin: "15px 0 0 0",
       color: "#631d22",
+      outline: "0 !important",
     },
     divider: {
       height: 28,
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export default function CustomizedInputBase(props) {
+export default function InputPlate(props) {
   const classes = useStyles();
 
   const handleChange = (e) => {

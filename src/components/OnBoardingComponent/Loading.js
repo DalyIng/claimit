@@ -3,7 +3,7 @@ import Lottie from "react-lottie";
 
 import loader from "../../assets/claim_it/anims/loader.json";
 
-export default function Loader() {
+export default function Loading() {
   const defaultOptions = {
     loop: true,
     autoplay: true,

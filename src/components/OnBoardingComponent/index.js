@@ -10,6 +10,7 @@ import PermitExpired from "./PermitExpired";
 import Loading from "./Loading";
 
 import web3 from "../../constants/Web3";
+import conf from "../../constants/conf";
 import claimManagerContractABI from "../../ABIs/claimManager";
 
 export default function Index(props) {
@@ -77,7 +78,8 @@ export default function Index(props) {
   const getPlateNumber = async (data) => {
     try {
       const res = await axios.post(
-        "https://api.openalpr.com/v3/recognize_bytes?recognize_vehicle=1&country=us&secret_key=sk_978e794068ff24ccbcce9de5",
+        `${conf.openALPR_BaseURL}${conf.openALPR_SecretKey}`,
+        // substring(22): remove first 22 chars, ONLY ONG supported.
         data.substring(22)
       );
       console.log(
