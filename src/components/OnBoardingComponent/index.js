@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import Landing from "./Landing";
-import Identity from "./Identity";
+import InvalidIdentity from "./InvalidIdentity";
 import ScanVehicule from "./ScanVehicule";
 import ResultError from "./ResultError";
 import ResultSuccess from "./ResultSuccess";
@@ -230,7 +230,7 @@ export default function Index(props) {
           );
         } else {
           return (
-            <Identity
+            <InvalidIdentity
               handleNext={handleNext}
               identityAddress={identityAddress}
               reset={reset}

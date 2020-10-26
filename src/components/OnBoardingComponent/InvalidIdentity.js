@@ -3,7 +3,7 @@ import React from "react";
 import logo from "../../assets/claim_it/logo.svg";
 import placeholder from "../../assets/claim_it/arts/placeholder.png";
 
-export default function Identity(props) {
+export default function InvalidIdentity(props) {
   return (
     <div className="main">
       <div className="triangle" />
