@@ -22,9 +22,7 @@ export default function Loading() {
         height: "100vh",
       }}
     >
-      <div>
-        <Lottie options={defaultOptions} height={150} width={150} />
-      </div>
+      <Lottie options={defaultOptions} height={150} width={150} />
     </div>
   );
 }

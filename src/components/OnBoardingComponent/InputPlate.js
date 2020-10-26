@@ -102,6 +102,7 @@ export default function InputPlate(props) {
         className={classes.iconButton}
         aria-label="search"
         onClick={props.launchVerification}
+        disabled={!props.plateNumber}
       >
         <CheckCircleIcon />
       </IconButton>

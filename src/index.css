@@ -7,6 +7,14 @@
   --color-heading: #9b9aa4;
   --color-card: #e5e9eb;
   --color-background: #f9fafc;
+  --color-gradient: linear-gradient(
+    to right,
+    #992d35,
+    #8b272f,
+    #7e2129,
+    #711c24,
+    #64161e
+  );
 }
 
 /* Define fonts */

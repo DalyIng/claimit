@@ -32,7 +32,7 @@ export default function Landing(props) {
               <div className="card_1">
                 {scanning ? (
                   <QrReader
-                    delay={1500}
+                    delay={300}
                     onError={props.handleError}
                     onScan={props.handleScan}
                     style={{ width: "100%", height: "100%" }}

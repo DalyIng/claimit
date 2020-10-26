@@ -114,6 +114,7 @@ export default function ScanVehicule(props) {
                       launchVerification={props.launchVerification}
                       handlePlate={props.handlePlate}
                       handleTakePhoto={handleTakePhoto}
+                      plateNumber={props.plateNumber}
                     />
                   </React.Fragment>
                 ) : props.plateNumber ? (

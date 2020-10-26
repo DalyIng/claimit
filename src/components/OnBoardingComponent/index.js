@@ -22,12 +22,20 @@ export default function Index(props) {
   const [plateNumber, setPlateNumber] = useState(null); // plateNumber
   const [validClaim, setValidClaim] = useState(null); // result after onChain verification
 
+  // If PMR identityAddress is passed as queryParam, it will be set in the state.
   useEffect(() => {
     if (props.address && verifyValidAddress(props.address)) {
       setIdentityAddress(props.address);
       handleNext();
     }
   }, [props.address]);
+
+  // Log result after check
+  useEffect(() => {
+    if (validClaim) {
+      console.log("INFO - PMR claim is valid: ", validClaim);
+    }
+  }, [validClaim]);
 
   // = = = =  verify valid Ethereum address = = = =
   const verifyValidAddress = (data) => {
@@ -45,7 +53,17 @@ export default function Index(props) {
   // };
 
   const reset = () => {
+    // Loading ON
+    setLoading(true);
+    // Reset state
+    setValidAddress(false);
+    setIdentityAddress("");
+    setPlateImage(null);
+    setPlateNumber(null);
+    setValidClaim(null);
     setActiveStep(0);
+    // Loading OFF
+    setLoading(false);
   };
 
   // = = = =  handle QrCode = = = =
@@ -67,7 +85,7 @@ export default function Index(props) {
     console.error(err);
   };
 
-  // = = = = handle plate image = = = =
+  // = = = = handle plateImage = = = =
 
   // handle Input
   const handlePlate = (event) => {
@@ -79,7 +97,7 @@ export default function Index(props) {
     try {
       const res = await axios.post(
         `${conf.openALPR_BaseURL}${conf.openALPR_SecretKey}`,
-        // substring(22): remove first 22 chars, ONLY ONG supported.
+        // substring(22): remove first 22 chars, actually ONLY PNG format is supported.
         data.substring(22)
       );
       console.log(
