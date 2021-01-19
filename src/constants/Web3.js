@@ -1,7 +1,8 @@
 import Web3 from "web3";
 
 const web3 = new Web3(
-  new Web3.providers.WebsocketProvider("wss://infrachain-bc.intech.lu/ws")
+  // new Web3.providers.WebsocketProvider("wss://infrachain-bc.intech.lu/ws") // 403 Forbidden
+  new Web3.providers.WebsocketProvider("wss://kovan.infura.io/ws/v3/478594576aff47efb0c126f142526737") // 403 Forbidden
 );
 
 // Check Chain coonectivity...

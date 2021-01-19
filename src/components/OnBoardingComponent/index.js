@@ -11,7 +11,7 @@ import Loading from "./Loading";
 
 import web3 from "../../constants/Web3";
 import conf from "../../constants/conf";
-import claimManagerContractABI from "../../ABIs/claimManager";
+// import claimManagerContractABI from "../../ABIs/claimManager";
 
 export default function Index(props) {
   const [activeStep, setActiveStep] = useState(0);
@@ -125,80 +125,86 @@ export default function Index(props) {
   async function verifyClaim() {
     setLoading(true);
 
-    //
-    const Mr_MAX_MUSTERMANContractAddress = identityAddress;
+    /** 
+    The Bllockchain in no longer accessible, so for demo purposes, we'll skip this part
+    until we deploy the smart contracts on Kovan blockchain for the next demo.
+    */
 
-    console.log(
-      "INFO - QRCode Scan: Mr_MAX_MUSTERMAN contract address",
-      Mr_MAX_MUSTERMANContractAddress
-    );
+    // const Mr_MAX_MUSTERMANContractAddress = identityAddress;
 
-    const maxMContract = new web3.eth.Contract(
-      claimManagerContractABI,
-      Mr_MAX_MUSTERMANContractAddress
-    );
+    // console.log(
+    //   "INFO - QRCode Scan: Mr_MAX_MUSTERMAN contract address",
+    //   Mr_MAX_MUSTERMANContractAddress
+    // );
 
-    const pmrParkingAuth = await maxMContract.methods
-      .getTopicClaim("PMR_PARKING_AUTH")
-      .call();
+    // const maxMContract = new web3.eth.Contract(
+    //   claimManagerContractABI,
+    //   Mr_MAX_MUSTERMANContractAddress
+    // );
 
-    console.log("INFO - pmrParkingAuth: ", pmrParkingAuth);
+    // const pmrParkingAuth = await maxMContract.methods
+    //   .getTopicClaim("PMR_PARKING_AUTH")
+    //   .call();
 
-    const Dr_AXXXXContractAddress = pmrParkingAuth[3];
+    // console.log("INFO - pmrParkingAuth: ", pmrParkingAuth);
 
-    console.log(
-      "INFO - Doctor Issuer Address: Dr_AXXXXContractAddress",
-      Dr_AXXXXContractAddress
-    );
+    // const Dr_AXXXXContractAddress = pmrParkingAuth[3];
 
-    const doctorContract = new web3.eth.Contract(
-      claimManagerContractABI,
-      Dr_AXXXXContractAddress
-    );
+    // console.log(
+    //   "INFO - Doctor Issuer Address: Dr_AXXXXContractAddress",
+    //   Dr_AXXXXContractAddress
+    // );
 
-    const pmrParkingVehiculeNumber = await maxMContract.methods
-      .getTopicClaim("PMR_PARKING_VEHICLE_REG_NB")
-      .call();
+    // const doctorContract = new web3.eth.Contract(
+    //   claimManagerContractABI,
+    //   Dr_AXXXXContractAddress
+    // );
 
-    console.log("INFO - pmrParkingVehiculeNumber: ", pmrParkingVehiculeNumber);
+    // const pmrParkingVehiculeNumber = await maxMContract.methods
+    //   .getTopicClaim("PMR_PARKING_VEHICLE_REG_NB")
+    //   .call();
 
-    const vehiculeNumber = pmrParkingVehiculeNumber[0];
+    // console.log("INFO - pmrParkingVehiculeNumber: ", pmrParkingVehiculeNumber);
 
-    console.log("INFO - vehiculeNumber: ", vehiculeNumber);
+    // const vehiculeNumber = pmrParkingVehiculeNumber[0];
 
-    let constructDataVehiculerNumber = `${pmrParkingVehiculeNumber[0]}${pmrParkingVehiculeNumber[1]}${pmrParkingVehiculeNumber[2]}${pmrParkingVehiculeNumber[3]}${pmrParkingVehiculeNumber[4]}${pmrParkingVehiculeNumber[5]}`;
+    // console.log("INFO - vehiculeNumber: ", vehiculeNumber);
 
-    let constructDataParkingAuth = `${pmrParkingAuth[0]}${pmrParkingAuth[1]}${pmrParkingAuth[2]}${pmrParkingAuth[3]}${pmrParkingAuth[4]}${pmrParkingAuth[5]}`;
+    // let constructDataVehiculerNumber = `${pmrParkingVehiculeNumber[0]}${pmrParkingVehiculeNumber[1]}${pmrParkingVehiculeNumber[2]}${pmrParkingVehiculeNumber[3]}${pmrParkingVehiculeNumber[4]}${pmrParkingVehiculeNumber[5]}`;
 
-    const signerVehiculeNumber = web3.eth.accounts.recover(
-      constructDataVehiculerNumber,
-      pmrParkingVehiculeNumber[6]
-    );
+    // let constructDataParkingAuth = `${pmrParkingAuth[0]}${pmrParkingAuth[1]}${pmrParkingAuth[2]}${pmrParkingAuth[3]}${pmrParkingAuth[4]}${pmrParkingAuth[5]}`;
 
-    const signerParkingAuth = web3.eth.accounts.recover(
-      constructDataParkingAuth,
-      pmrParkingAuth[6]
-    );
+    // const signerVehiculeNumber = web3.eth.accounts.recover(
+    //   constructDataVehiculerNumber,
+    //   pmrParkingVehiculeNumber[6]
+    // );
 
-    console.log("INFO - signerVehiculeNumber: ", signerVehiculeNumber);
+    // const signerParkingAuth = web3.eth.accounts.recover(
+    //   constructDataParkingAuth,
+    //   pmrParkingAuth[6]
+    // );
 
-    console.log("INFO - signerParkingAuth: ", signerParkingAuth);
+    // console.log("INFO - signerVehiculeNumber: ", signerVehiculeNumber);
 
-    const doctorContractOwner = await doctorContract.methods.owner().call();
-    console.log("INFO - doctorContractOwner: ", doctorContractOwner);
+    // console.log("INFO - signerParkingAuth: ", signerParkingAuth);
 
-    const pmrContractOwner = await maxMContract.methods.owner().call();
-    console.log("INFO - pmrContractOwner: ", pmrContractOwner);
+    // const doctorContractOwner = await doctorContract.methods.owner().call();
+    // console.log("INFO - doctorContractOwner: ", doctorContractOwner);
 
-    setValidClaim(
-      pmrContractOwner === signerVehiculeNumber &&
-        doctorContractOwner === signerParkingAuth &&
-        vehiculeNumber === plateNumber
-    );
+    // const pmrContractOwner = await maxMContract.methods.owner().call();
+    // console.log("INFO - pmrContractOwner: ", pmrContractOwner);
+
+    // setValidClaim(
+    //   pmrContractOwner === signerVehiculeNumber &&
+    //     doctorContractOwner === signerParkingAuth &&
+    //     vehiculeNumber === plateNumber
+    // );
+
+    setValidClaim(true);
 
     handleNext();
 
-    setTimeout(() => setLoading(false), 3000);
+    setTimeout(() => setLoading(false), 5000);
   }
 
   // = = = = handle UI/Steps = = = =
